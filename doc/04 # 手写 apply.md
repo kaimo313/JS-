@@ -1,0 +1,35 @@
+## apply
+
+apply 的作用跟 call 的作用是一样的，只不过传递的参数是以数组的形式
+
+## 手写 apply
+
+```html
+<script>
+    Function.prototype.kaimoApply = function (content, args) {
+        // 没有东西指向 window，将 content 包装成对象
+        content = content ? Object(content) : window;
+        // 执行 this() 改变不了 this 指向，需要赋值给属性
+        content.f = this;
+        let res = args ? content.f(...args) : content.f();
+        // 再删除多余的 f 参数
+        delete content.f;
+        return res;
+    };
+
+    function fn(num1, num2) {
+        console.log("this----->", this);
+        return num1 + num2;
+    }
+
+    let obj = {
+        name: "kaimo313"
+    };
+
+    let res = fn.apply(obj, [1, 2]);
+    console.log("res----->", res);
+
+    let res2 = fn.kaimoApply(obj, [1, 2]);
+    console.log("res2----->", res2);
+</script>
+```
