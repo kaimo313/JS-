@@ -1,0 +1,47 @@
+## map 的使用
+
+map 自带循环功能，对数据中的元素进行加工，得到一个加工后的新数据
+
+- ele：表示数组中的每一个元素
+- index：表示数据中元素的索引
+- array：表示数组
+
+```html
+<script>
+    var arr = [1, 3, 5, 7, 9];
+    var result = arr.map(function (ele, index, array) {
+        console.log("ele----->", ele);
+        console.log("index----->", index);
+        console.log("array----->", array);
+        return ele * ele;
+    });
+    console.warn("result----->", result);
+</script>
+```
+
+
+## 手写实现 map 方法
+
+```html
+<script>
+    Array.prototype.kaimoMap = function (fn) {
+        let newArr = [];
+        for (let i = 0; i < this.length; i++) {
+            // fn 是 kaimoMap 中传递的参数，是一个函数，this 是 arr
+            let res = fn(this[i], i, this);
+            newArr.push(res);
+        }
+        return newArr;
+    };
+
+    var result2 = arr.kaimoMap(function (ele, index, array) {
+        console.log("ele---kaimoMap-->", ele);
+        console.log("index---kaimoMap-->", index);
+        console.log("array---kaimoMap-->", array);
+        return ele * ele;
+    });
+
+    console.warn("result2---kaimoMap-->", result2);
+</script>
+
+```
