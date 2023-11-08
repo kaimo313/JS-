@@ -1,0 +1,30 @@
+<script>
+    var arr = [1, 3, 5, 7, 8];
+    var result = arr.every(function (ele, index, array) {
+        console.log("ele----->", ele);
+        console.log("index----->", index);
+        console.log("array----->", array);
+        return ele > 0;
+    });
+    console.warn("result----->", result);
+
+    Array.prototype.kaimoEvery = function (fn) {
+        for (let i = 0; i < this.length; i++) {
+            // fn 是 kaimoEvery 中传递的参数，是一个函数，this 是 arr
+            let res = fn(this[i], i, this);
+            if (!res) {
+                return false;
+            }
+        }
+        return true;
+    };
+
+    var result2 = arr.kaimoEvery(function (ele, index, array) {
+        console.log("ele---kaimoEvery-->", ele);
+        console.log("index---kaimoEvery-->", index);
+        console.log("array---kaimoEvery-->", array);
+        return ele > 0;
+    });
+
+    console.warn("result2---kaimoEvery-->", result2);
+</script>
