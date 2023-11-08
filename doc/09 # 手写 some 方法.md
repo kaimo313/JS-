@@ -7,7 +7,40 @@ some() 方法测试数组中是否至少有一个元素通过了由提供的函�
 - array：表示数组
 
 ```html
-
+<script>
+    var arr = [1, 3, 5, 7, 8];
+    var result = arr.some(function (ele, index, array) {
+        console.log("ele----->", ele);
+        console.log("index----->", index);
+        console.log("array----->", array);
+        return ele > 8;
+    });
+    console.warn("result----->", result);
+</script>
 ```
 
 ## 手写 some
+
+```html
+<script>
+    Array.prototype.kaimoSome = function (fn) {
+        for (let i = 0; i < this.length; i++) {
+            // fn 是 kaimoSome 中传递的参数，是一个函数，this 是 arr
+            let res = fn(this[i], i, this);
+            if (res) {
+                return true;
+            }
+        }
+        return false;
+    };
+
+    var result2 = arr.kaimoSome(function (ele, index, array) {
+        console.log("ele---kaimoSome-->", ele);
+        console.log("index---kaimoSome-->", index);
+        console.log("array---kaimoSome-->", array);
+        return ele > 8;
+    });
+
+    console.warn("result2---kaimoSome-->", result2);
+</script>
+```
