@@ -1,0 +1,29 @@
+<script>
+    var arr1 = ["k", "a", "i"];
+    var arr2 = ["m", "o"];
+    var arr3 = [3, 1, 3];
+    var result1 = arr1.concat(arr2, arr3);
+    console.log("result1----->", result1);
+    var result2 = arr1.concat(arr2, arr3, "hello", 666);
+    console.log("result2----->", result2);
+
+    Array.prototype.kaimoConcat = function (...args) {
+        let newArr = [...this];
+        if (args.length === 0) {
+            return newArr;
+        }
+        args.forEach((el) => {
+            if (Array.isArray(el)) {
+                newArr.push(...el);
+            } else {
+                newArr.push(el);
+            }
+        });
+        return newArr;
+    };
+
+    var result3 = arr1.kaimoConcat(arr2, arr3);
+    console.log("result3---kaimoConcat-->", result3);
+    var result4 = arr1.kaimoConcat(arr2, arr3, "hello", 666);
+    console.log("result4---kaimoConcat-->", result4);
+</script>
