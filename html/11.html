@@ -1,0 +1,38 @@
+<script>
+    var arr = [1, 2, 3, 4];
+    var result = arr.reduce(function (accumulator, currentValue, currentIndex, array) {
+        console.log("accumulator----->", accumulator);
+        console.log("currentValue----->", currentValue);
+        console.log("currentIndex----->", currentIndex);
+        console.log("array----->", array);
+        return accumulator + currentValue;
+    }, -3);
+    console.warn("result----->", result);
+
+    Array.prototype.kaimoReduce = function (callbackfn, initialValue) {
+        let hasInitialValue = initialValue !== undefined;
+        if (this.length === 0) {
+            if (hasInitialValue) {
+                return initialValue;
+            } else {
+                throw TypeError("Reduce of empty array with no initial value");
+            }
+        }
+        let accumulator = hasInitialValue ? initialValue : this[0];
+        let i = hasInitialValue ? 0 : 1;
+        for (i; i < this.length; i++) {
+            accumulator = callbackfn(accumulator, this[i], i, this);
+        }
+        return accumulator;
+    };
+
+    var result2 = arr.kaimoReduce(function (accumulator, currentValue, currentIndex, array) {
+        console.log("accumulator---kaimoReduce-->", accumulator);
+        console.log("currentValue---kaimoReduce-->", currentValue);
+        console.log("currentIndex---kaimoReduce-->", currentIndex);
+        console.log("array---kaimoReduce-->", array);
+        return accumulator + currentValue;
+    }, -3);
+
+    console.warn("result2---kaimoReduce-->", result2);
+</script>
