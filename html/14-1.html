@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>防抖</title>
+        <script src="https://cdn.bootcdn.net/ajax/libs/underscore.js/1.13.6/underscore-min.js"></script>
+    </head>
+    <body>
+        <div>
+            普通输入框：
+            <input class="input1" />
+        </div>
+        <div>
+            防抖输入框：
+            <input class="input2" />
+        </div>
+        <script>
+            // 普通
+            const inputEl1 = document.querySelector(".input1");
+            let counter1 = 1;
+            inputEl1.oninput = function () {
+                console.log(`发送网络请求${counter1++}`, this.value);
+            };
+            // 防抖处理过的
+            const inputEl2 = document.querySelector(".input2");
+            let counter2 = 1;
+            inputEl2.oninput = _.debounce(function () {
+                console.log(`防抖处理：发送网络请求${counter2++}`, this.value);
+            }, 1000);
+        </script>
+    </body>
+</html>
