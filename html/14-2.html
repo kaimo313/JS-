@@ -1,36 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>手写防抖</title>
-        <script>
-            function kaimoDebounce(fn, delay) {
-                let timer = null;
-                let _debounce = () => {
-                    // 清除上一次定时器
-                    clearTimeout(timer);
-                    // 开启新的一个定时器
-                    timer = setTimeout(() => {
-                        fn();
-                        timer = null;
-                    }, delay);
-                };
-                return _debounce;
-            }
-        </script>
-    </head>
-    <body>
-        <div>
-            防抖输入框：
-            <input class="input" />
-        </div>
-        <script>
-            const inputEl = document.querySelector(".input");
-            let counter = 1;
-            inputEl.oninput = kaimoDebounce(function () {
-                console.log(`手写防抖：发送网络请求${counter++}`, this.value, arguments);
-            }, 1000);
-        </script>
-    </body>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>手写防抖</title>
+    <script>
+        function kaimoDebounce(fn, delay) {
+            let timer = null;
+            let _debounce = function (...args) {
+                // 清除上一次定时器
+                clearTimeout(timer);
+                // 开启新的一个定时器
+                timer = setTimeout(() => {
+                    // this 和参数绑定
+                    fn.apply(this, args);
+                    // 函数执行完之后，将timer置为null
+                    timer = null;
+                }, delay);
+            };
+            return _debounce;
+        }
+    </script>
+</head>
+
+<body>
+    <div>
+        防抖输入框：
+        <input class="input" />
+    </div>
+    <script>
+        const inputEl = document.querySelector(".input");
+        let counter = 1;
+        inputEl.oninput = kaimoDebounce(function (e) {
+            console.log(`手写防抖：发送网络请求${counter++}`, this, this.value);
+            console.log(e);
+        }, 1000);
+    </script>
+</body>
+
 </html>
